@@ -1,0 +1,18 @@
+rules:
+  - id: price_high
+    name: 高价股加分
+    condition: price > 1000
+    score_delta: 15
+    weight: 1.0
+
+  - id: positive_change
+    name: 涨跌为正加分
+    condition: change > 0
+    score_delta: 10
+    weight: 0.8
+
+  - id: high_roe
+    name: 高ROE加分
+    condition: roe > 20
+    score_delta: 20
+    weight: 1.2

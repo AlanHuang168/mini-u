@@ -1,0 +1,6 @@
+streamlit
+openai
+python-dotenv
+jinja2
+akshare
+pandas
