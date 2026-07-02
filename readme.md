@@ -1,3 +1,15 @@
+---
+title: Mini U
+emoji: 🚀
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+sdk_version: 1.36.0
+app_file: app.py
+pinned: false
+---
+
+```
 mini-uzi-teach/
 ├── main.py                    # 入口（聚合所有子 Skill）
 ├── SKILL.md                   # Skill 身份证
@@ -23,16 +35,19 @@ mini-uzi-teach/
     ├── __init__.py
     └── pipeline.py
 
+```
 
-阶段,目标,要增加的技术点,难度,教学价值
-阶段1,理解 Pipeline,把代码拆成 collect → analyze → render,低,最高
-阶段2,理解规则 vs LLM,把规则引擎和 LLM 明确分开成模块,中,很高
-阶段3,理解报告生成,做出更接近 UZI 的自包含 HTML 报告,中,高
-阶段4,理解缓存与鲁棒性,增加简单缓存 + fallback,中,实用
-阶段5,理解 Skill 结构,加上 SKILL.md + 多命令支持,中高,架构思维
+#### 阶段,目标,要增加的技术点,难度,教学价值
+#### 阶段1,理解 Pipeline,把代码拆成 collect → analyze → render,低,最高
+#### 阶段2,理解规则 vs LLM,把规则引擎和 LLM 明确分开成模块,中,很高
+#### 阶段3,理解报告生成,做出更接近 UZI 的自包含 HTML 报告,中,高
+#### 阶段4,理解缓存与鲁棒性,增加简单缓存 + fallback,中,实用
+#### 阶段5,理解 Skill 结构,加上 SKILL.md + 多命令支持,中高,架构思维
 
 
-创建虚拟环境：
+
+# 创建虚拟环境：
+
 python -m venv .venv
 
 # Mac/Linux 激活
