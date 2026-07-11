@@ -10,6 +10,7 @@ __pycache__/
 
 # 虚拟环境（覆盖所有常见工具）
 .venv/
+.venv*/
 venv/
 env/
 ENV/
