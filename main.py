@@ -26,10 +26,11 @@ deepseek_key = st.text_input("DeepSeek API Key (可选)", type="password", value
 if deepseek_key:
     st.session_state.deepseek_key = deepseek_key
 
-# 优先用用户本次输入的 key，其次用服务器配置的环境变量（HuggingFace Secrets）
-effective_key = st.session_state.deepseek_key or os.getenv("DEEPSEEK_API_KEY", "")
+# 只用本会话用户输入的 key，不读服务器环境变量（避免跨用户共享同一个 key）
+effective_key = st.session_state.deepseek_key
 
 ticker_input = st.text_input("股票代码（支持多个，用逗号分隔）", "600519, 000333")
+demo_mode = st.checkbox("演示模式（跳过 akshare，使用 Mock 数据）", value=False)
 
 if st.button("🚀 开始分析"):
     if not effective_key:
@@ -41,11 +42,11 @@ if st.button("🚀 开始分析"):
 
         if len(tickers) > 1:
             status_text.info("使用多股票对比模式...")
-            report_html = compare_stocks(tickers, api_key=effective_key)
+            report_html = compare_stocks(tickers, api_key=effective_key, use_mock=demo_mode)
             st.success("✅ 多股票对比完成！")
         else:
             status_text.info(f"Step 1: 采集 {tickers[0]} 数据...")
-            data = collect_data(tickers[0])
+            data = collect_data(tickers[0], use_mock=demo_mode)
             data_list = [data]
 
             status_text.info("Step 2: DeepSeek 分析...")

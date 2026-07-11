@@ -3,7 +3,7 @@ from pipeline.collect import collect_data
 from pipeline.analyze import analyze_with_llm
 from pipeline.render import generate_report
 
-def compare_stocks(tickers: list, progress_bar=None, status_text=None, api_key: str = None) -> str:
+def compare_stocks(tickers: list, progress_bar=None, status_text=None, api_key: str = None, use_mock: bool = False) -> str:
     """多股票对比（支持进度条）"""
     data_list = []
     analysis_list = []
@@ -17,7 +17,7 @@ def compare_stocks(tickers: list, progress_bar=None, status_text=None, api_key: 
         if progress_bar:
             progress_bar.progress(progress)
 
-        data = collect_data(ticker)
+        data = collect_data(ticker, use_mock=use_mock)
         data_list.append(data)
 
         if status_text:
