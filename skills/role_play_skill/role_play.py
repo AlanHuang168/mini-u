@@ -5,7 +5,7 @@ from openai import OpenAI
 import os
 
 
-def get_role_comment(ticker: str, data: dict, role_name: str) -> str:
+def get_role_comment(ticker: str, data: dict, role_name: str, api_key: str = None) -> str:
     """让 LLM 模拟特定角色评论"""
 
     role_file = Path(f"roles/{role_name.lower()}.yaml")
@@ -15,7 +15,7 @@ def get_role_comment(ticker: str, data: dict, role_name: str) -> str:
     with open(role_file, "r", encoding="utf-8") as f:
         role = yaml.safe_load(f)
 
-    api_key = os.getenv("DEEPSEEK_API_KEY")
+    api_key = api_key or os.getenv("DEEPSEEK_API_KEY")
     if not api_key:
         return f"演示模式：未配置 DEEPSEEK_API_KEY，已跳过 {role_name} 角色 LLM 点评。"
 

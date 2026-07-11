@@ -10,14 +10,14 @@ from pipeline.cache import load_cache, save_cache
 load_dotenv()
 
 
-def analyze_with_llm(data: dict) -> str:
+def analyze_with_llm(data: dict, api_key: str = None) -> str:
     ticker = data["ticker"]
 
     cached = load_cache(ticker, mode="llm")
     if cached:
         return cached
 
-    api_key = os.getenv("DEEPSEEK_API_KEY")
+    api_key = api_key or os.getenv("DEEPSEEK_API_KEY")
 
     if not api_key:
         return f"""
