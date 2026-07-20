@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 生成零基础教学 PPT：Mini-U 量化分析员
-运行： python build_ppt.py  → 输出 Mini-U教学课件.pptx
+运行： python docs/build_ppt.py  → 输出 docs/Mini-U教学课件.pptx
+依赖： pip install python-pptx
 """
+import os
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
@@ -467,6 +469,7 @@ para(tf2, "有问题？欢迎提问 🙋", 24, WHITE, bold=True, align=PP_ALIGN.
 notes(s, "今天的课就到这里。整个项目已经开源，大家可以去HuggingFace上亲自体验，代码和更详细的技术文档都在项目里。希望这节课让你对AI应用到底怎么做有了具体的感觉。有任何问题欢迎现在提问或课后交流。谢谢大家！")
 
 # ---------- 保存 ----------
-out = "Mini-U教学课件.pptx"
+# 输出到本脚本所在目录（docs/），无论从哪里运行
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Mini-U教学课件.pptx")
 prs.save(out)
 print(f"✅ 已生成：{out}  共 {len(prs.slides.__iter__.__self__._sldIdLst)} 页")
