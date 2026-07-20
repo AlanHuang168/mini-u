@@ -3,7 +3,7 @@
 name: mini-uzi
 description: 简易量化分析教学版 - 学习 UZI-Skill 架构
 version: 1.0
-author: Your Name
+author: AlanHuang168
 license: MIT
 
 # 子 Skill 入口
