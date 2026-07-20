@@ -2,8 +2,14 @@ import yaml
 from pathlib import Path
 
 def safe_float(value, default=0):
-    """安全转 float"""
+    """安全转 float。
+
+    兼容行情里常见的带符号/百分号字符串（如 "+0.85%"、"-0.35%"），
+    这样 rules.yaml 里形如 `change > 0` 的规则才能对 change 字段正确求值。
+    """
     try:
+        if isinstance(value, str):
+            value = value.strip().rstrip("%").strip()
         return float(value)
     except (TypeError, ValueError):
         return default

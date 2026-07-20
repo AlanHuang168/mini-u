@@ -2,24 +2,6 @@
 import akshare as ak
 from datetime import datetime
 from rules.scoring import calculate_score
- 
-def calculate_basic_score(data: dict) -> int:
-    """简单规则打分"""
-    score = 50
-    if data.get("price", 0) and float(data.get("price", 0)) > 1000:
-        score += 10
-    return min(100, max(0, score))
-
-def get_investment_suggestion(score: int) -> str:
-    """根据评分给出建议"""
-    if score >= 80:
-        return "强烈推荐"
-    elif score >= 65:
-        return "推荐"
-    elif score >= 50:
-        return "观望"
-    else:
-        return "回避"
 
 MOCK_DATA = {
     "600519": {"name": "贵州茅台", "price": 1190.96, "change": "+0.85%"},
