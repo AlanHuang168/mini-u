@@ -14,7 +14,14 @@ def test_safe_float_handles_bad_input():
     assert safe_float("12.3") == 12.3
     assert safe_float(None) == 0
     assert safe_float("not-a-number") == 0
-    assert safe_float("1.2%", default=-1) == -1  # 带 % 的字符串无法直接转换
+    assert safe_float("garbage", default=-1) == -1
+
+
+def test_safe_float_parses_percent_and_sign():
+    """行情字段常带符号/百分号，需能正确解析（否则相关规则永远不命中）。"""
+    assert safe_float("+0.85%") == 0.85
+    assert safe_float("-0.35%") == -0.35
+    assert safe_float("0.00%") == 0.0
 
 
 def test_evaluate_condition_greater_and_less():
@@ -57,6 +64,17 @@ def test_calculate_score_applies_rules():
     assert result["level"] == "优秀"
     assert "price_high" in result["applied_rules"]
     assert "high_roe" in result["applied_rules"]
+
+
+def test_positive_change_rule_fires_with_percent_string():
+    """回归测试：change 是 "+0.85%" 这类字符串时，positive_change 规则应命中（+10）。"""
+    result = calculate_score({"change": "+0.85%"})
+    assert result["score"] == 60
+    assert "positive_change" in result["applied_rules"]
+
+    # 涨跌为负或零则不加分
+    assert calculate_score({"change": "-0.35%"})["score"] == 50
+    assert calculate_score({"change": "0.00%"})["score"] == 50
 
 
 def test_calculate_score_is_capped_at_100():
